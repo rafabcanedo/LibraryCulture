@@ -13,30 +13,31 @@ func InitializeSQLite() (*gorm.DB, error) {
 	dbPath := "./db/main.db"
 
 	// Check if the database file exists
-	_, error := os.Stat(dbPath)
-	if os.IsNotExist(error) {
+	_, err := os.Stat(dbPath)
+	if os.IsNotExist(err) {
 		logger.Info("database file not found, creating...")
-		error = os.MkdirAll("./db", os.ModePerm)
-		if error != nil {
-			return nil, error
+		err = os.MkdirAll("./db", os.ModePerm)
+		if err != nil {
+			return nil, err
 		}
-		file, error := os.Create(dbPath)
-		if error != nil {
-			return nil, error
+		file, err := os.Create(dbPath)
+		if err != nil {
+			return nil, err
 		}
 		// Import closed file !!
 		file.Close()
 	}
 
-	db, error := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
-	if error != nil {
-		logger.Errorf("sqlite books error: %v", error)
-		return nil, error
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
+	if err != nil {
+		logger.Errorf("sqlite books error: %v", err)
+		return nil, err
 	}
-	error = db.AutoMigrate(&schemas.Book{})
-	if error != nil {
-		logger.Errorf("sqlite automigration error: %v", error)
-		return nil, error
+
+	err = db.AutoMigrate(&schemas.Book{})
+	if err != nil {
+		logger.Errorf("sqlite automigration error: %v", err)
+		return nil, err
 	}
 
 	return db, nil

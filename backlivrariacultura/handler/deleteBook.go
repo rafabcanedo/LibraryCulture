@@ -10,6 +10,7 @@ import (
 
 func DeleteBookHandler(ctx *gin.Context) {
 	id := ctx.Query("id")
+
 	if id == "" {
 		sendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "queryParameter").Error())
 		return
@@ -25,7 +26,7 @@ func DeleteBookHandler(ctx *gin.Context) {
 
 	// Delete Book
 	if err := db.Delete(&book).Error; err != nil {
-		sendError(ctx, http.StatusInternalServerError, fmt.Sprintf("error deleting opening with id: %s", id))
+		sendError(ctx, http.StatusInternalServerError, fmt.Sprintf("error deleting book with id: %s", id))
 		return
 	}
 

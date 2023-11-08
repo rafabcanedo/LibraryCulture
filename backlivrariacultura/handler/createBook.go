@@ -27,10 +27,10 @@ func CreateBookHanlder(ctx *gin.Context) {
 	}
 
 	if err := db.Create(&book).Error; err != nil {
-		logger.Errorf("Error creating opening: %v", err.Error())
+		logger.Errorf("Error creating Book: %v", err.Error())
 		sendError(ctx, http.StatusInternalServerError, "error creating book on database")
 		return
 	}
 
-	sendSuccess(ctx, "create-opening", book)
+	sendSuccess(ctx, "create-book", book)
 }

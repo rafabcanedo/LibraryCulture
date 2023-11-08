@@ -20,7 +20,7 @@ type BookResponse struct {
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
 	DeletedAt   time.Time `json:"deletedAt,omitempty"`
-	Title       string    `json:"role"`
+	Title       string    `json:"title"`
 	Author      string    `json:"author"`
 	Description string    `json:"description"`
 	Reserved    bool      `json:"reserved"`

@@ -7,7 +7,7 @@ import (
 	"github.com/rafabcanedo/LibraryCulture/schemas"
 )
 
-func ShowBookHandler(ctx *gin.Context) {
+func ShowUserHandler(ctx *gin.Context) {
 	id := ctx.Query("id")
 
 	if id == "" {
@@ -15,12 +15,12 @@ func ShowBookHandler(ctx *gin.Context) {
 		return
 	}
 
-	book := schemas.Book{}
+	user := schemas.User{}
 
-	if err := db.First(&book, id).Error; err != nil {
-		sendError(ctx, http.StatusNotFound, "book not found")
+	if err := db.First(&user, id).Error; err != nil {
+		sendError(ctx, http.StatusNotFound, "user not found")
 		return
 	}
 
-	sendSuccess(ctx, "show-book", book)
+	sendSuccess(ctx, "show-user", user)
 }
